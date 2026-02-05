@@ -41,7 +41,7 @@ node {
 	// sh "docker images | awk '{print $3}' | awk 'NR==2'"
 	//sh echo "Enter the docker lattest imageID"
 	//sh "read imageid"
-	   sh "docker tag 3a226ea1b471 riteshpatel9261/cicdjava-maven" //must change your name and tag no
+	   sh "docker tag d0abd332ad06 riteshpatel9261/cicdjava-maven" //must change your name and tag no
         sh "docker push riteshpatel9261/cicdjava-maven"
   }
 }
