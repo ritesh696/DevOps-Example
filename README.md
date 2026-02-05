@@ -33,6 +33,30 @@ RUN apt-get update  -qq \
 RUN usermod -aG docker jenkins
 ```
 
+another Docker file 
+```
+FROM jenkins/jenkins:lts-jdk17
+
+USER root
+
+# Install dependencies and Docker CE
+RUN apt-get update -qq \
+	 && apt-get install -qqy apt-transport-https ca-certificates curl gnupg2 software-properties-common \
+	 && curl -fsSL https://download.docker.com/linux/debian/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg \
+	 && echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian $(lsb_release -cs) stable" \
+		> /etc/apt/sources.list.d/docker.list \
+	 && apt-get update -qq \
+	 && apt-get install -y docker-ce docker-ce-cli containerd.io \
+	 && usermod -aG docker jenkins \
+	 && apt-get clean \
+	 && rm -rf /var/lib/apt/lists/*
+
+USER jenkins
+
+```
+
+
+
 Just place this Dockerfile in any folder and run the following commands:
 
 $ docker image build -t jenkins-docker .
